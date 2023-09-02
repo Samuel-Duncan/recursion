@@ -1,19 +1,29 @@
-const fibonacciIteration = (number) => {
+const fibonacciIteration = (n) => {
   const array = [0, 1];
-  for (let i = 2; i <= number - 1; i++) {
+  for (let i = 2; i <= n - 1; i++) {
     array.push(array[i - 1] + array[i - 2]);
   }
+
   return array;
 };
 
 console.log(fibonacciIteration(8));
 
-const fibonacciRecursion = (n, start = 0, previous = 1, result = [0]) => {
-  if (result.length >= n) {
-    return result;
-  }
-  result.push(previous);
-  return fibonacciRecursion(n, previous, start + previous, result);
+const fibonacciRecursion = (n) => {
+  const result = [0, 1];
+
+  const generateFibonacci = () => {
+    const nextValue = result[result.length - 1] + result[result.length - 2];
+    result.push(nextValue);
+
+    if (result.length >= n) {
+      return result;
+    }
+
+    return generateFibonacci();
+  };
+
+  return generateFibonacci();
 };
 
 console.log(fibonacciRecursion(8));
@@ -26,6 +36,7 @@ const mergeSort = (array) => {
   if (array.length <= 1) {
     return array;
   }
+
   return merge(mergeSort(leftHalf), mergeSort(rightHalf));
 
   function merge(leftHalf, rightHalf) {
